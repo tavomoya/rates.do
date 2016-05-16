@@ -1,0 +1,15 @@
+{
+  "name": "rates.do",
+  "version": "1.0.0",
+  "description": "Get the updated rates from major banks in Dominican Republic using the API from api.marcos.do",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "request": "^2.40.0",
+    "q": "^1.0.1"
+  },
+  "author": "Gregorio Moya from Spectrum <gmoyatorres@gmail.com>",
+  "license": "ISC"
+}
