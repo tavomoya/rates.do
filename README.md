@@ -15,13 +15,15 @@ var Rates = require('rates.do');
 #### Get rates from all banks
 
 ```javascript
-new Rates().getAllRates(); //This returns a promise
+const rates = new Rates(); 
+rates.GetAllRates()//This returns a promise
 ```
 
 #### Get US Dollar rate from Central Bank
 
 ```javascript
-new Rates().centralBankRate();  //This returns a promise
+const rates = new Rates()
+rates.GetCentralBankRates();  //This returns a promise
 ```
 
 ## To Do
