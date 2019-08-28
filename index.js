@@ -1,65 +1,33 @@
-var request = require('request');
-var q = require('q');
+'use strict';
 
-// Mixin Constructor
-function Rates () {
+const axios = require('axios');
 
-  // Define API Path
-  this.apiPath = 'http://api.marcos.do';
+class Rates {
 
-};
+	constructor() {
+		this.api = 'http://api.marcos.do';
+	}
 
-// Get rates from all banks
-Rates.prototype.getAllRates = function () {
-  var deferred = q.defer();
-  var _this = this;
+	async GetAllRates() {
+		try {
+			const res = await axios.get(`${this.api}/rates`);
+			return res.data;
+		} catch (err) {
+			console.log('err=> ', err);
+			return new Error(`There was an error trying to fetch all rates => ${err}`);
+		}
+	};
 
-  request.get(_this.apiPath+'/rates',
-  function (err, res){
-    if (err) {
-      deferred.reject(err);
-    };
+	async GetCentralBankRates() {
+		try {
+			const res = await axios.get(`${this.api}/central_bank_rates`);
+			return res.data;
+		} catch (err) {
+			console.log('err=> ', err);
+			return new Error(`There was an error trying to fetch bank rates => ${err}`);
+		}
+	}
 
-    if (!res) {
-      deferred.reject({
-        msg: 'An unexpected error occured while fetching the rates'
-      });
-    } else {
-      deferred.resolve({
-        rates: res.body,
-        status: res.statusCode
-      });
-    };
-  });
-
-  return deferred.promise;
-};
-
-//Get rates from the Central Bank
-Rates.prototype.centralBankRate = function () {
-  var deferred = q.defer();
-  var _this = this;
-
-  request.get(_this.apiPath+'/central_bank_rates',
-  function (err, res){
-    if (err) {
-      deferred.reject(err);
-    };
-
-    if (!res) {
-      deferred.reject({
-        msg: 'An unexpected error occured while fetching the rates'
-      });
-    } else {
-      deferred.resolve({
-        rates: res.body,
-        status: res.statusCode
-      });
-    };
-  });
-
-  return deferred.promise;
-
-};
+}
 
 module.exports = Rates;
